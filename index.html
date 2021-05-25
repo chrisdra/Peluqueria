@@ -16,10 +16,23 @@
                 <h1>App Peluqueria</h1>
             </header>
             <nav class="tabs">
-                <button type="button">Servicios</button>
-                <button type="button">Información Cliente</button>
-                <button type="button">Resumen</button>
+                <button type="button" data-paso="1">Servicios</button>
+                <button type="button" data-paso="2">Información Cliente</button>
+                <button type="button" data-paso="3">Resumen</button>
             </nav>
+
+            <!-- Inicia Contenido App-->
+            <div id="paso-1" class="seccion">
+                <h2>Servicios</h2>
+                <p class="text-center">Elije tus Servicios a continuación</p>
+                <div id='servicios' class="listado-servicios"></div>
+            </div>
+            <div id="paso-2" class="seccion">
+                <h2>Tus Datos y Cita</h2>
+            </div>
+            <div id="paso-3" class="seccion">
+                <h2>Resumen</h2>
+            </div>
         </div>
     </div>
 
