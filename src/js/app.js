@@ -30,6 +30,18 @@ function iniciarApp(){
 
     //Muestra el resumen de la cita (o mensaje de error en caso de no pasar la validacion)
     mostrarResumen();
+
+    //Almacena el nombre de la cita en el obj
+    nombreCita();
+
+    //Almacena la fecha de la cita en el objeto
+    fechaCita();
+
+    //Ddeshabilita dias pasados
+    deshabilitarFechaAnterior();
+
+    //Almacena la hora de la cita en el objeto
+    horaCita();
 }
 
 function mostrarSeccion() {
@@ -200,6 +212,8 @@ function botonesPaginador() {
     } else if (pagina === 3) {
         paginaSiguiente.classList.add('ocultar');
         paginaAnterior.classList.remove('ocultar');
+
+        mostrarResumen(); //Estamos en la pagina 3, cara el resumen en la cita
     } else {
         paginaAnterior.classList.remove('ocultar');
         paginaSiguiente.classList.remove('ocultar');
@@ -224,7 +238,110 @@ function mostrarResumen() {
 
         //Agregar a resumen Div
         resumenDiv.appendChild(noServicios);
+    } else {
+        console.log('Vamos a mostrar el resumen');
     }
 
     //console.log(cita);
+}
+
+function nombreCita() {
+    const nombreInput = document.querySelector('#nombre');
+
+    nombreInput.addEventListener('input', e => {
+        const nombreTexto = e.target.value.trim();
+
+        //Validacion de que nombreTexto debe tener algo
+        if( nombreTexto === '' || nombreTexto.length < 3 ){
+            mostrarAlerta('Nombre no valido', 'error');
+        } else {
+            const alerta = document.querySelector('.alerta');
+            if(alerta){
+                alerta.remove();
+            }
+            cita.nombre = nombreTexto;
+        }
+        //console.log(e.target.values);
+    })
+}
+
+function mostrarAlerta(mensaje, tipo) {
+
+    //Si hay una alerta previa, no crear otra
+    const alertaPrevia = document.querySelector('.alerta');
+    if(alertaPrevia){
+        return;
+    }
+
+    console.log('El mensaje es ', mensaje);
+
+    const alerta = document.createElement('DIV');
+    alerta.textContent = mensaje;
+    alerta.classList.add('alerta');
+
+    if(tipo === 'error') {
+        alerta.classList.add('error');
+    }
+
+    //Insertar en el HTML
+    const formulario = document.querySelector('.formulario');
+    formulario.appendChild( alerta );
+
+    //Eliminar la alerta despues de 3 segundos
+    setTimeout(() => {
+        alerta.remove();
+    }, 3000);
+}
+
+function fechaCita() {
+    const fechaInput = document.querySelector('#fecha');
+    fechaInput.addEventListener('input', e => {
+
+        const dia = new Date(e.target.value).getUTCDay();
+
+        //0 indica dia domingo y 6 dia sabado
+        if([0, 6].includes(dia)) {
+            e.preventDefault();
+            fechaInput.value = '';
+            mostrarAlerta('Fines de Semana no son permitidos', 'error');
+        } else {
+            cita.fecha = fechaInput.value;
+
+            console.log(cita);
+        }
+    });
+}
+
+function deshabilitarFechaAnterior() {
+    const inputFecha = document.querySelector('#fecha');
+
+    const fechaAhora = new Date();
+    const year = fechaAhora.getFullYear();
+    const mes = fechaAhora.getMonth() + 1;
+    const dia = fechaAhora.getDate() + 1; //Esto permitira que no sea seleccionado el mismo dia en el cual esta solicitando hora
+
+    const fechaDeshabilitar = `${year}-${mes}-${dia}`;
+
+    inputFecha.min = fechaDeshabilitar;
+
+}
+
+function horaCita() {
+    const inputHora = document.querySelector('#hora');
+    inputHora.addEventListener('input', e => {
+
+        const horaCita = e.target.value;
+        const hora = horaCita.split(':');
+
+        if(hora[0] < 10 || hora[0] > 18) {
+            mostrarAlerta('Horas no validas', 'error');
+            setTimeout(() => {
+                inputHora.value = '';
+            }, 3000);
+        } else {
+            cita.hora = horaCita;
+
+            console.log(cita);
+        }
+    });   
 }
