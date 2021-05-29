@@ -213,6 +213,7 @@ function botonesPaginador() {
         paginaSiguiente.classList.add('ocultar');
         paginaAnterior.classList.remove('ocultar');
 
+        
         mostrarResumen(); //Estamos en la pagina 3, cara el resumen en la cita
     } else {
         paginaAnterior.classList.remove('ocultar');
