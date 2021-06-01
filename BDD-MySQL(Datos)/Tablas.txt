@@ -1,15 +1,36 @@
 mysql> use appsalon;
 Database changed
-mysql> show tables;
+mysql> SHOW TABLES;
 +--------------------+
 | Tables_in_appsalon |
 +--------------------+
-| reservaciones      |
+| citas              |
+| clientes           |
 | servicios          |
 +--------------------+
-2 rows in set (0.00 sec)
+3 rows in set (0.00 sec)
 
-mysql> select * from servicios;
+mysql> SELECT * FROM citas;
++----+------------+----------+-----------+
+| id | fecha      | hora     | clienteId |
++----+------------+----------+-----------+
+|  1 | 2021-06-28 | 10:30:00 |         1 |
+|  2 | 2021-06-28 | 10:35:00 |         2 |
+|  3 | 2021-06-28 | 10:40:00 |         3 |
++----+------------+----------+-----------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM clientes;
++----+-----------+-----------------+------------+------------------------+
+| id | nombre    | apellido        | telefono   | email                  |
++----+-----------+-----------------+------------+------------------------+
+|  1 | Christian | Herrera Ruz     | 6548456987 | christian.hr@gmail.com |
+|  2 | Maria     | Ruz Mena        | 9574569582 | maria.ruzm@outlook.com |
+|  3 | Christian | Herrera Cabezas | 9563973100 | chrisdra.hc@gmail.com  |
++----+-----------+-----------------+------------+------------------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM servicios;
 +----+-------------------------+--------+
 | id | nombre                  | precio |
 +----+-------------------------+--------+
@@ -23,58 +44,16 @@ mysql> select * from servicios;
 |  8 | Lavado de Cabello       |  50.00 |
 |  9 | Tratamiento Capilar     | 150.00 |
 +----+-------------------------+--------+
-9 rows in set (0.02 sec)
+9 rows in set (0.00 sec)
 
-mysql> select * from reservaciones;
-+----+-----------+-------------+----------+------------+-----------------------------------------+
-| id | nombre    | apellido    | hora     | fecha      | servicios                               |
-+----+-----------+-------------+----------+------------+-----------------------------------------+
-|  1 | Juan      | De la torre | 10:30:00 | 2021-06-28 | Corte de Cabello Adulto, Corte de Barba |
-|  2 | Antonio   | Hernandez   | 14:00:00 | 2021-07-30 | Corte de Cabello Niño                   |
-|  3 | Pedro     | Juarez      | 20:00:00 | 2021-06-25 | Corte de Cabello Adulto                 |
-|  4 | Mireya    | Perez       | 19:00:00 | 2021-06-25 | Peinado Mujer                           |
-|  5 | Jose      | Castillo    | 14:00:00 | 2021-07-30 | Peinado Hombre                          |
-|  6 | Maria     | Diaz        | 14:30:00 | 2021-06-25 | Tinte                                   |
-|  7 | Clara     | Duran       | 10:00:00 | 2021-07-01 | Uñas, Tinte, Corte de Cabello Mujer     |
-|  8 | Miriam    | Ibañez      | 09:00:00 | 2021-07-01 | Tinte                                   |
-|  9 | Samuel    | Reyes       | 10:00:00 | 2021-07-02 | Tratamiento Capilar                     |
-| 10 | Joaquin   | Muñoz       | 19:00:00 | 2021-06-28 | Tratamiento Capilar                     |
-| 11 | Julia     | Lopez       | 08:00:00 | 2021-06-25 | Tinte                                   |
-| 12 | Carmen    | Ruiz        | 20:00:00 | 2021-07-01 | Uñas                                    |
-| 13 | Isaac     | Sala        | 09:00:00 | 2021-07-30 | Corte de Cabello Adulto                 |
-| 14 | Ana       | Preciado    | 14:30:00 | 2021-06-28 | Corte de Cabello Mujer                  |
-| 15 | Sergio    | Iglesias    | 10:00:00 | 2021-07-02 | Corte de Cabello Adulto                 |
-| 16 | Aina      | Acosta      | 14:00:00 | 2021-07-30 | Uñas                                    |
-| 17 | Carlos    | Ortiz       | 20:00:00 | 2021-06-25 | Corte de Cabello Niño                   |
-| 18 | Roberto   | Serrano     | 10:00:00 | 2021-07-30 | Corte de Cabello Niño                   |
-| 19 | Carlota   | Perez       | 14:00:00 | 2021-07-01 | Uñas                                    |
-| 20 | Ana Maria | Igleias     | 14:00:00 | 2021-07-02 | Uñas, Tinte                             |
-| 21 | Jaime     | Jimenez     | 14:00:00 | 2021-07-01 | Corte de Cabello Niño                   |
-| 22 | Roberto   | Torres      | 10:00:00 | 2021-07-02 | Corte de Cabello Adulto                 |
-| 23 | Juan      | Cano        | 09:00:00 | 2021-07-02 | Corte de Cabello Niño                   |
-| 24 | Santiago  | Hernandez   | 19:00:00 | 2021-06-28 | Corte de Cabello Niño                   |
-| 25 | Berta     | Gomez       | 09:00:00 | 2021-07-01 | Uñas                                    |
-| 26 | Miriam    | Dominguez   | 19:00:00 | 2021-06-28 | Corte de Cabello Niño                   |
-| 27 | Antonio   | Castro      | 14:30:00 | 2021-07-02 | Corte de Cabello Adulti                 |
-| 28 | Hugo      | Alonso      | 09:00:00 | 2021-06-28 | Corte de Barba                          |
-| 29 | Victoria  | Perez       | 10:00:00 | 2021-07-02 | Uñas, Tinte                             |
-| 30 | Jimena    | Leon        | 10:30:00 | 2021-07-30 | Uñas, Corte de Cabello Mujer            |
-| 31 | Raquel    | Peña        | 20:30:00 | 2021-06-25 | Corte de Cabello Mujer                  |
-+----+-----------+-------------+----------+------------+-----------------------------------------+
-31 rows in set (0.00 sec)
+mysql> SELECT * FROM citas INNER JOIN clientes ON clientes.id = citas.clienteID;
++----+------------+----------+-----------+----+-----------+-----------------+------------+------------------------+
+| id | fecha      | hora     | clienteId | id | nombre    | apellido        | telefono   | email                  |
++----+------------+----------+-----------+----+-----------+-----------------+------------+------------------------+
+|  1 | 2021-06-28 | 10:30:00 |         1 |  1 | Christian | Herrera Ruz     | 6548456987 | christian.hr@gmail.com |
+|  2 | 2021-06-28 | 10:35:00 |         2 |  2 | Maria     | Ruz Mena        | 9574569582 | maria.ruzm@outlook.com |
+|  3 | 2021-06-28 | 10:40:00 |         3 |  3 | Christian | Herrera Cabezas | 9563973100 | chrisdra.hc@gmail.com  |
++----+------------+----------+-----------+----+-----------+-----------------+------------+------------------------+
+3 rows in set (0.00 sec)
 
-mysql> SELECT * FROM reservaciones WHERE id = 5;
-+----+--------+----------+----------+------------+----------------+
-| id | nombre | apellido | hora     | fecha      | servicios      |
-+----+--------+----------+----------+------------+----------------+
-|  5 | Jose   | Castillo | 14:00:00 | 2021-07-30 | Peinado Hombre |
-+----+--------+----------+----------+------------+----------------+
-1 row in set (0.01 sec)
-
-mysql> SELECT * FROM reservaciones WHERE nombre = 'Raquel';
-+----+--------+----------+----------+------------+------------------------+
-| id | nombre | apellido | hora     | fecha      | servicios              |
-+----+--------+----------+----------+------------+------------------------+
-| 31 | Raquel | Peña     | 20:30:00 | 2021-06-25 | Corte de Cabello Mujer |
-+----+--------+----------+----------+------------+------------------------+
-1 row in set (0.00 sec)
+mysql>
