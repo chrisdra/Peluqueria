@@ -5,10 +5,11 @@ mysql> SHOW TABLES;
 | Tables_in_appsalon |
 +--------------------+
 | citas              |
+| citasservicios     |
 | clientes           |
 | servicios          |
 +--------------------+
-3 rows in set (0.00 sec)
+4 rows in set (0.00 sec)
 
 mysql> SELECT * FROM citas;
 +----+------------+----------+-----------+
@@ -19,6 +20,14 @@ mysql> SELECT * FROM citas;
 |  3 | 2021-06-28 | 10:40:00 |         3 |
 +----+------------+----------+-----------+
 3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM citasservicios;
++----+--------+------------+
+| id | citaId | servicioId |
++----+--------+------------+
+|  1 |      2 |          8 |
++----+--------+------------+
+1 row in set (0.00 sec)
 
 mysql> SELECT * FROM clientes;
 +----+-----------+-----------------+------------+------------------------+
@@ -45,15 +54,3 @@ mysql> SELECT * FROM servicios;
 |  9 | Tratamiento Capilar     | 150.00 |
 +----+-------------------------+--------+
 9 rows in set (0.00 sec)
-
-mysql> SELECT * FROM citas INNER JOIN clientes ON clientes.id = citas.clienteID;
-+----+------------+----------+-----------+----+-----------+-----------------+------------+------------------------+
-| id | fecha      | hora     | clienteId | id | nombre    | apellido        | telefono   | email                  |
-+----+------------+----------+-----------+----+-----------+-----------------+------------+------------------------+
-|  1 | 2021-06-28 | 10:30:00 |         1 |  1 | Christian | Herrera Ruz     | 6548456987 | christian.hr@gmail.com |
-|  2 | 2021-06-28 | 10:35:00 |         2 |  2 | Maria     | Ruz Mena        | 9574569582 | maria.ruzm@outlook.com |
-|  3 | 2021-06-28 | 10:40:00 |         3 |  3 | Christian | Herrera Cabezas | 9563973100 | chrisdra.hc@gmail.com  |
-+----+------------+----------+-----------+----+-----------+-----------------+------------+------------------------+
-3 rows in set (0.00 sec)
-
-mysql>
